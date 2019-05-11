@@ -1,7 +1,12 @@
 import React from 'react'
 
 import { Grid, List, ListItem, Paper } from '@material-ui/core'
-import { fetchProviders, fetchRoutes, fetchDirections } from '../utils/apiCalls'
+
+import RoutesList from '../components/routesList'
+import DirectionButtons from '../components/directionButtons'
+import StopsList from '../components/stopsList'
+
+import { fetchProviders, fetchRoutes, fetchDirections, fetchStops } from '../utils/apiCalls'
 
 export class RootContainer extends React.PureComponent {
   constructor(props) {
@@ -29,39 +34,49 @@ export class RootContainer extends React.PureComponent {
   }
 
   onSelectRoute = (e) => {
-    const routeNumber = e.target.value.toString()
-    fetchDirections(routeNumber).then(result => {
-      this.setState({ currentRoute: routeNumber, directions: result.data })
+    const currentRoute = e.target.value.toString()
+    fetchDirections(currentRoute).then(result => {
+      const directions = result.data
+      this.setState({ currentRoute, directions })
+    })
+  }
+
+  onSelectDirection = (e) => {
+    const { currentRoute } = this.state
+    const currentDirection = e.target.value.toString()
+    fetchStops(currentRoute, currentDirection).then(result => {
+      const stops = result.data
+      this.setState({ currentDirection, stops })
     })
   }
 
   render() {
-    const { routes, currentRoute } = this.state
+    const { routes, currentRoute, directions, currentDirection, stops } = this.state
 
     return (
       <Grid container>
         <Grid item xs={12} md={4} >
           {routes.length > 0 &&
-          <Paper style={{ margin: '20px', textAlign: 'center' }}>
-            <h1>Routes</h1>
-            <List style={{ maxHeight: '500px', overflow: 'scroll' }}>
-              {routes.map((route, idx) => 
-                <ListItem 
-                  onClick={this.onSelectRoute}
-                  selected={currentRoute === route.Route}
-                  value={route.Route} 
-                  key={idx}
-                >
-                  {route.Description}
-                </ListItem>
-              )}
-            </List>
-          </Paper> 
+            <RoutesList 
+              routes={routes}
+              currentRoute={currentRoute}
+              onSelectRoute={this.onSelectRoute}
+            />
           }
         </Grid>
         <Grid item xs={12} md={4} >
+          {directions.length > 0 &&
+            <DirectionButtons 
+              directions={directions}
+              currentDirection={currentDirection}
+              onSelectDirection={this.onSelectDirection}
+            />
+          }
         </Grid>
         <Grid item xs={12} md={4} >
+          {stops.length > 0 &&
+            <StopsList stops={stops} />
+          }
         </Grid>
       </Grid>
     )
