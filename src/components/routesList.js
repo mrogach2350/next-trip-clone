@@ -27,6 +27,7 @@ export const RoutesList = ({
         <List style={{ maxHeight: '500px', overflow: 'scroll' }}>
           {routes.map((route, idx) => 
             <ListItem 
+              button
               onClick={() => onSelectRoute(route.Route)}
               selected={currentRoute === route.Route}
               key={idx}
