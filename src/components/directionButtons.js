@@ -1,24 +1,45 @@
 import  React from 'react'
-import { Paper, List, ListItem } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+import { Paper, Button } from '@material-ui/core'
+import { header } from '../utils/styleConstants'
 
-export const DirectionButtons = ({ directions = [], currentDirection = '', onSelectDirection = () => {} }) => {
-  return (
-    <Paper style={{ margin: '20px', textAlign: 'center' }}>
-      <h1>Direction</h1>
-      <List style={{ maxHeight: '500px', overflow: 'scroll' }}>
-        {directions.map((direction, idx) => 
-          <ListItem 
-            onClick={onSelectDirection}
-            selected={currentDirection === direction.Value}
-            value={direction.Value} 
-            key={idx}
-          >
-            {direction.Text}
-          </ListItem>
-        )}
-      </List>
-    </Paper>
-  )
+const styles = {
+  root: { 
+    margin: '20px', 
+    display: 'flex', 
+    flexDirection: 'row', 
+    alignItems: 'center' 
+  },
+  button: {
+    margin: '10px',
+  },
+  header,
 }
 
-export default DirectionButtons
+export const DirectionButtons = ({ 
+    classes = {},
+    directions = [], 
+    currentDirection = '', 
+    onSelectDirection = () => {} 
+  }) => {
+    return (
+    <Paper style={{ textAlign: 'center' }}>
+    <h1 className={classes.header}>Direction</h1>
+    <div className={classes.root}>
+      {directions.map((direction, idx) => 
+        <Button 
+          key={idx}
+          className={classes.button}
+          variant="contained" 
+          color={currentDirection === direction.Value ? "primary" : ''}
+          onClick={() => onSelectDirection(direction.Value)}
+        >
+          {direction.Text}
+        </Button>
+      )}
+    </div>
+    </Paper>
+  )
+  }
+
+export default withStyles(styles)(DirectionButtons)

@@ -1,11 +1,10 @@
 import React from 'react'
-
-import { Grid, List, ListItem, Paper } from '@material-ui/core'
+import queryString from 'query-string'
+import { Grid } from '@material-ui/core'
 
 import RoutesList from '../components/routesList'
 import DirectionButtons from '../components/directionButtons'
 import StopsList from '../components/stopsList'
-
 import { fetchProviders, fetchRoutes, fetchDirections, fetchStops } from '../utils/apiCalls'
 
 export class RootContainer extends React.PureComponent {
@@ -15,12 +14,12 @@ export class RootContainer extends React.PureComponent {
     this.state = {
       defaultProvider: '8',
       providers: [],
-      currentProvider: '8',
       routes: [],
-      currentRoute: '',
       directions: [],
-      currentDirection: '0',
       stops: [],
+      currentProvider: '8',
+      currentRoute: '',
+      currentDirection: '',
     }
   }
 
@@ -33,51 +32,72 @@ export class RootContainer extends React.PureComponent {
     })
   }
 
-  onSelectRoute = (e) => {
-    const currentRoute = e.target.value.toString()
-    fetchDirections(currentRoute).then(result => {
-      const directions = result.data
-      this.setState({ currentRoute, directions })
-    })
+  componentDidUpdate(prevProps, prevState) {
+    const prevParams = queryString.parse(prevProps.location.search)
+    const params = queryString.parse(this.props.location.search)
+
+    if (params.r !== prevParams.r) {
+      if(!params.r) {
+        return this.setState({ currentRoute: '', directions: [], stops: [] })
+      }
+
+      return fetchDirections(params.r).then(result => {
+        const directions = result.data
+        this.setState({ currentRoute: params.r, directions })
+      }) 
+    }
+
+    if (params.d !== prevParams.d) {
+      if(!params.d) {
+        return this.setState({ currentDirection: '', stops: [] })
+      }
+
+      return fetchStops(params.r, params.d).then(result => {
+        const stops = result.data
+        this.setState({ currentDirection: params.d, stops })
+      })
+    }
   }
 
-  onSelectDirection = (e) => {
+  onSelectRoute = (currentRoute) => {
+    const { history } = this.props
+    history.push(`?r=${currentRoute}`)
+  }
+
+  onSelectDirection = (currentDirection) => {
+    const { history } = this.props
     const { currentRoute } = this.state
-    const currentDirection = e.target.value.toString()
-    fetchStops(currentRoute, currentDirection).then(result => {
-      const stops = result.data
-      this.setState({ currentDirection, stops })
-    })
+    history.push(`?r=${currentRoute}&d=${currentDirection}`)
   }
 
   render() {
+    const { history } = this.props
     const { routes, currentRoute, directions, currentDirection, stops } = this.state
-
     return (
-      <Grid container>
-        <Grid item xs={12} md={4} >
-          {routes.length > 0 &&
-            <RoutesList 
-              routes={routes}
-              currentRoute={currentRoute}
-              onSelectRoute={this.onSelectRoute}
-            />
-          }
-        </Grid>
-        <Grid item xs={12} md={4} >
-          {directions.length > 0 &&
-            <DirectionButtons 
-              directions={directions}
-              currentDirection={currentDirection}
-              onSelectDirection={this.onSelectDirection}
-            />
-          }
-        </Grid>
-        <Grid item xs={12} md={4} >
-          {stops.length > 0 &&
-            <StopsList stops={stops} />
-          }
-        </Grid>
+      <Grid 
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+      >
+        {routes.length > 0 &&
+          <RoutesList 
+            history={history}
+            routes={routes}
+            currentRoute={currentRoute}
+            onSelectRoute={this.onSelectRoute}
+          /> 
+        }
+        {directions.length > 0 &&
+          <DirectionButtons 
+            directions={directions}
+            currentDirection={currentDirection}
+            onSelectDirection={this.onSelectDirection}
+          />
+        }
+        {stops.length > 0 &&
+          <StopsList stops={stops} />
+        }
       </Grid>
     )
   }

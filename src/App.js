@@ -1,11 +1,12 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import RootContainer from './containers/rootContainer'
 
 function App() {
   return (
-    <div className="App">
-      <RootContainer />
-    </div>
+    <Router>
+      <Route path="/" component={RootContainer} />
+    </Router>
   );
 }
 

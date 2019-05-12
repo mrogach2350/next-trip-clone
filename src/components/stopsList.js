@@ -1,10 +1,16 @@
 import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
 import { Paper, List, ListItem } from '@material-ui/core'
+import { header } from '../utils/styleConstants'
 
-export const StopsList = ({ stops = [] }) => {
+const styles = {
+  header,
+}
+
+export const StopsList = ({ stops = [], classes = {} }) => {
   return (
     <Paper style={{ margin: '20px', textAlign: 'center' }}>
-      <h1>Stops</h1>
+      <h1 className={classes.header}>Stops</h1>
       <List style={{ maxHeight: '500px', overflow: 'scroll' }}>
         {stops.map((stop, idx) => 
           <ListItem 
@@ -19,4 +25,4 @@ export const StopsList = ({ stops = [] }) => {
   )
 }
 
-export default StopsList
+export default withStyles(styles)(StopsList)
