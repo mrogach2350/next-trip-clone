@@ -1,10 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Paper, List, ListItem } from '@material-ui/core'
 import { header } from '../utils/styleConstants'
 
 const styles = {
-  header
+  header,
+  root: { 
+    margin: '20px', 
+    textAlign: 'center', 
+  }
 }
 
 export const RoutesList = ({ 
@@ -16,7 +21,7 @@ export const RoutesList = ({
 }) => {
   const currentRouteData = routes.find(x => x.Route === currentRoute)
   return (
-    <Paper style={{ margin: '20px', textAlign: 'center' }}>
+    <Paper className={classes.root}>
       <h1 onClick={() => history.push('/')} className={classes.header}>Routes</h1>
       {currentRoute === '' ?
         <List style={{ maxHeight: '500px', overflow: 'scroll' }}>
@@ -37,5 +42,18 @@ export const RoutesList = ({
     </Paper> 
   )
 } 
+
+RoutesList.propTypes = {
+  classes: PropTypes.object,
+  routes: PropTypes.arrayOf(
+    PropTypes.shape({
+      Route: PropTypes.string,
+      Description: PropTypes.string,
+    })
+  ),
+  currentRoute: PropTypes.string,
+  onSelectRoute: PropTypes.func,
+  history: PropTypes.object,
+}
 
 export default withStyles(styles)(RoutesList)
