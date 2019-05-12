@@ -6,9 +6,10 @@ import { header } from '../utils/styleConstants'
 
 const styles = {
   root: { 
-    margin: '20px', 
+    margin: 0,
+    padding: '16px', 
     display: 'flex', 
-    flexDirection: 'row', 
+    flexDirection: 'column', 
     alignItems: 'center',
     justifyContent: 'center' 
   },

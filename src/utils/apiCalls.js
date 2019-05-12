@@ -10,3 +10,6 @@ export const fetchDirections = (routeNumber = 0) =>
 export const fetchStops = (routeNumber = 0, direction = 0) => 
   axios.get(`http://svc.metrotransit.org/NexTrip/Stops/${routeNumber}/${direction}?format=json`)
 
+export const fetchDepartures = (routeNumber = 0, direction = 0, stopId = '') => 
+  axios.get(`http://svc.metrotransit.org/NexTrip/${routeNumber}/${direction}/${stopId}`)
+

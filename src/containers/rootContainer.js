@@ -1,11 +1,19 @@
 import React from 'react'
 import queryString from 'query-string'
+import { withStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core'
-
 import RoutesList from '../components/routesList'
 import DirectionButtons from '../components/directionButtons'
 import StopsList from '../components/stopsList'
-import { fetchProviders, fetchRoutes, fetchDirections, fetchStops } from '../utils/apiCalls'
+import InfoDialog from '../components/infoDialog'
+import { fetchProviders, fetchRoutes, fetchDirections, fetchStops, fetchDepartures } from '../utils/apiCalls'
+
+const styles = {
+  root: {
+    backgroundColor: '#d3d3d3',
+    height: '100vh'
+  }
+}
 
 export class RootContainer extends React.PureComponent {
   constructor(props) {
@@ -20,6 +28,7 @@ export class RootContainer extends React.PureComponent {
       currentProvider: '8',
       currentRoute: '',
       currentDirection: '',
+      currentStopText: '',
     }
   }
 
@@ -42,7 +51,9 @@ export class RootContainer extends React.PureComponent {
           currentRoute: '', 
           currentDirection: '',
           directions: [], 
-          stops: [] 
+          stops: [],
+          departures: [],
+          showModal: false,
         })
       }
 
@@ -75,13 +86,22 @@ export class RootContainer extends React.PureComponent {
     history.push(`?r=${currentRoute}&d=${currentDirection}`)
   }
 
+  onStopClicked = ({ Value = '', Text = '' }) => {
+    const { currentRoute, currentDirection } = this.state
+    fetchDepartures(currentRoute, currentDirection, Value).then(result => {
+      this.setState({ departures: result.data, currentStopText: Text, showModal: true })
+    })
+  }
+
+  closeModal = () => this.setState({ showModal: false })
+
   render() {
-    const { history } = this.props
-    const { routes, currentRoute, directions, currentDirection, stops } = this.state
+    const { history, classes } = this.props
+    const { routes, currentRoute, directions, currentDirection, stops, currentStopText, showModal, departures } = this.state
+    const currentRouteData = routes.find(x => x.Route === currentRoute)
+    const currentDirectionData = directions.find(x => x.Value === currentDirection)
     return (
-      <Grid 
-        container
-      >
+      <Grid container className={classes.root}>
         <Grid item xs={false} md={1} />
         <Grid item xs={12} md={5} md-offset={1}>
           {routes.length > 0 &&
@@ -102,12 +122,20 @@ export class RootContainer extends React.PureComponent {
         </Grid> 
         <Grid item xs={12} md={5}>
           {stops.length > 0 &&
-            <StopsList stops={stops} />
+            <StopsList stops={stops} onStopClicked={this.onStopClicked} />
           }
         </Grid>
+        <InfoDialog 
+          open={showModal} 
+          currentStopText={currentStopText} 
+          departures={departures}
+          handleClose={this.closeModal} 
+          currentRouteData={currentRouteData}
+          currentDirectionData={currentDirectionData}
+        />
       </Grid>
     )
   }
 }
 
-export default RootContainer
+export default withStyles(styles)(RootContainer)
