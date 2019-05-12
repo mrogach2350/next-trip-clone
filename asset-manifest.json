@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/next-trip-clone/static/css/main.34de6062.chunk.css",
+    "main.js": "/next-trip-clone/static/js/main.e4d61f2e.chunk.js",
+    "main.js.map": "/next-trip-clone/static/js/main.e4d61f2e.chunk.js.map",
+    "runtime~main.js": "/next-trip-clone/static/js/runtime~main.1ec4fbc7.js",
+    "runtime~main.js.map": "/next-trip-clone/static/js/runtime~main.1ec4fbc7.js.map",
+    "static/js/2.4c07c699.chunk.js": "/next-trip-clone/static/js/2.4c07c699.chunk.js",
+    "static/js/2.4c07c699.chunk.js.map": "/next-trip-clone/static/js/2.4c07c699.chunk.js.map",
+    "index.html": "/next-trip-clone/index.html",
+    "precache-manifest.bd250aed45dc99ff7ece3b94fd93c6e9.js": "/next-trip-clone/precache-manifest.bd250aed45dc99ff7ece3b94fd93c6e9.js",
+    "service-worker.js": "/next-trip-clone/service-worker.js",
+    "static/css/main.34de6062.chunk.css.map": "/next-trip-clone/static/css/main.34de6062.chunk.css.map"
+  }
+}
