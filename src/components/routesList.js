@@ -11,6 +11,13 @@ const styles = {
   root: { 
     margin: '20px', 
     textAlign: 'center', 
+  },
+  list: { 
+    maxHeight: '500px', 
+    overflow: 'scroll' 
+  },
+  h1: {
+    margin: 0,
   }
 }
 
@@ -25,12 +32,11 @@ export const RoutesList = ({
   return (
     <Paper className={classes.root}>
       <div className={classes.header}>
-        <h1 style={{ margin: 0 }}>Routes</h1>
+        <h1 className={classes.h1}>Routes</h1>
         <Button onClick={() => history.push('/')} variant="contained" >Reset</Button>
       </div>
-      {/* <h1 onClick={() => history.push('/')} className={classes.header}>Routes</h1> */}
       {currentRoute === '' ?
-        <List style={{ maxHeight: '500px', overflow: 'scroll' }}>
+        <List className={classes.list}>
           {routes.map((route, idx) => 
             <ListItem 
               button

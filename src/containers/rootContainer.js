@@ -1,10 +1,10 @@
 import React from 'react'
-import queryString from 'query-string'
 import { Grid } from '@material-ui/core'
 import RoutesList from '../components/routesList'
 import DirectionButtons from '../components/directionButtons'
 import StopsList from '../components/stopsList'
 import InfoDialog from '../components/infoDialog'
+import { getParsedSearchString } from '../utils/selectors'
 import { fetchProviders, fetchRoutes, fetchDirections, fetchStops, fetchDepartures } from '../utils/apiCalls'
 
 const initialState = {
@@ -38,8 +38,8 @@ export class RootContainer extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const prevParams = queryString.parse(prevProps.location.search)
-    const params = queryString.parse(this.props.location.search)
+    const prevParams = getParsedSearchString(prevProps)
+    const params = getParsedSearchString(this.props)
 
     if (params.r !== prevParams.r) {
       if(!params.r) {

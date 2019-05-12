@@ -20,6 +20,9 @@ const styles = {
   paper: { 
     margin: '20px', 
     textAlign: 'center', 
+  },
+  h1: {
+    margin: 0,
   }
 }
 
@@ -33,7 +36,7 @@ export const DirectionButtons = ({
   }) => 
     <Paper className={classes.paper}>
       <div className={classes.header}>
-        <h1 style={{ margin: 0 }}>Direction</h1>
+        <h1 className={classes.h1}>Direction</h1>
       </div>
       <div className={classes.root}>
         {directions.map((direction, idx) => 

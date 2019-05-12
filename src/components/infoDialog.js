@@ -22,27 +22,24 @@ export const InfoDialog = ({
   classes = {},
   currentRouteData = {},
   currentDirectionData = {}, 
-}) => {
-  return(
-    <Dialog open={open} fullWidth onClose={handleClose} >
-      <div className={classes.header}>
-        <strong>Route:</strong> {currentRouteData.Description}<br/>
-        <strong>Stop:</strong> {currentStopText}<br/>
-        <strong>Direction:</strong> {currentDirectionData.Text} 
-      </div>
-      <DialogContent className={classes.content}>
-        {departures.length === 0 ? 
-          <h4>No Departures left today</h4>:
-          departures.map(departure => 
-            <div className={classes.listing}>
-              <span>{departure.Description}</span><br/>
-              <span>Departs At: {departure.DepartureText}</span>
-            </div>
-          )
-        }
-      </DialogContent>
-    </Dialog>
-  )
-}
+}) => 
+  <Dialog open={open} fullWidth onClose={handleClose} >
+    <div className={classes.header}>
+      <strong>Route:</strong> {currentRouteData.Description}<br/>
+      <strong>Stop:</strong> {currentStopText}<br/>
+      <strong>Direction:</strong> {currentDirectionData.Text} 
+    </div>
+    <DialogContent className={classes.content}>
+      {departures.length === 0 ? 
+        <h4>No Departures left today</h4>:
+        departures.map(departure => 
+          <div className={classes.listing}>
+            <span>{departure.Description}</span><br/>
+            <span>Departs At: {departure.DepartureText}</span>
+          </div>
+        )
+      }
+    </DialogContent>
+  </Dialog>
 
 export default withStyles(styles)(InfoDialog)
