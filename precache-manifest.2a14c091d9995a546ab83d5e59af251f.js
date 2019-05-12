@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f3460be1ad121c6299dd7fae95bded90",
+    "revision": "ed144c77dff378b9ce403525b7ef22fe",
     "url": "/next-trip-clone/index.html"
   },
   {
-    "revision": "1455ca643b95f4873e3d",
+    "revision": "29865bab5884ae92e5c5",
     "url": "/next-trip-clone/static/css/main.34de6062.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/next-trip-clone/static/js/2.d246392d.chunk.js"
   },
   {
-    "revision": "1455ca643b95f4873e3d",
-    "url": "/next-trip-clone/static/js/main.e3537dfc.chunk.js"
+    "revision": "29865bab5884ae92e5c5",
+    "url": "/next-trip-clone/static/js/main.5f481a73.chunk.js"
   },
   {
     "revision": "2afd389606fc83b7afc8",

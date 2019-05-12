@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/next-trip-clone/static/css/main.34de6062.chunk.css",
-    "main.js": "/next-trip-clone/static/js/main.e3537dfc.chunk.js",
-    "main.js.map": "/next-trip-clone/static/js/main.e3537dfc.chunk.js.map",
+    "main.js": "/next-trip-clone/static/js/main.5f481a73.chunk.js",
+    "main.js.map": "/next-trip-clone/static/js/main.5f481a73.chunk.js.map",
     "runtime~main.js": "/next-trip-clone/static/js/runtime~main.1ec4fbc7.js",
     "runtime~main.js.map": "/next-trip-clone/static/js/runtime~main.1ec4fbc7.js.map",
     "static/js/2.d246392d.chunk.js": "/next-trip-clone/static/js/2.d246392d.chunk.js",
     "static/js/2.d246392d.chunk.js.map": "/next-trip-clone/static/js/2.d246392d.chunk.js.map",
     "index.html": "/next-trip-clone/index.html",
-    "precache-manifest.34382afe6e8c381ea59a82c026128d8a.js": "/next-trip-clone/precache-manifest.34382afe6e8c381ea59a82c026128d8a.js",
+    "precache-manifest.2a14c091d9995a546ab83d5e59af251f.js": "/next-trip-clone/precache-manifest.2a14c091d9995a546ab83d5e59af251f.js",
     "service-worker.js": "/next-trip-clone/service-worker.js",
     "static/css/main.34de6062.chunk.css.map": "/next-trip-clone/static/css/main.34de6062.chunk.css.map"
   }
