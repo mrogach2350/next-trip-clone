@@ -2,6 +2,8 @@
 
 This app reads data from The [Metro Transit Open API](http://svc.metrotransit.org) to display information on Bus Routes, Stops, and Departure Times.
 
+[Hosted with GitHub Pages here](http://www.mrogach.com/next-trip-clone)
+
 Technologies used in this project: 
 1. React
 2. React-Router
