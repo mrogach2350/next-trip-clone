@@ -8,12 +8,61 @@ describe('RootContainer', () => {
   beforeEach(() => {
     props = {
       classes: {},
+      history: {
+        push: jest.fn(),
+      }
     }
   })
 
   it('should render without error', () => {
     const wrapper = shallow(<RootContainer {...props} />)
     expect(wrapper).toMatchSnapshot()
+  })
+
+  describe('onSelectRoute', () => {
+    it('if no arg, should not call history.push', () => {
+      const wrapper = shallow(<RootContainer {...props} />)
+      const instance = wrapper.instance()
+
+      instance.onSelectRoute()
+
+      expect(props.history.push).not.toHaveBeenCalled()
+    })
+
+    it('should properly call history.push', () => {
+      const wrapper = shallow(<RootContainer {...props} />)
+      const instance = wrapper.instance()
+      const mockRoute = '2'
+      const mockQuery = `?r=${mockRoute}`
+
+      instance.onSelectRoute(mockRoute)
+
+      expect(props.history.push).toHaveBeenCalledWith(mockQuery)
+    })
+  })
+
+  describe('onSelectDirection', () => {
+    it('if no arg, should not call history.push', () => {
+      const wrapper = shallow(<RootContainer {...props} />)
+      const instance = wrapper.instance()
+
+      instance.onSelectDirection()
+
+      expect(props.history.push).not.toHaveBeenCalled()
+    })
+
+    it('should properly call history.push', () => {
+      const wrapper = shallow(<RootContainer {...props} />)
+      const instance = wrapper.instance()
+      const mockRoute = '2'
+      const mockDirection = '1'
+      const mockQuery = `?r=${mockRoute}&d=${mockDirection}`
+      wrapper.setState({ currentRoute: mockRoute })
+
+      instance.onSelectDirection(mockDirection)
+
+      expect(props.history.push).toHaveBeenCalledWith(mockQuery)
+    })
   })
 })
 
@@ -47,7 +96,6 @@ describe('Root Container - Mount', () => {
     wrapper.find('ListItem').first().simulate('click')
     
     expect(instance.onSelectRoute).toHaveBeenCalledWith(mockRouteValue)
-    expect(props.history.push).toHaveBeenCalled()
   })
 
   it('clicking a direction button should call onSelectDirection', () => {
@@ -67,6 +115,5 @@ describe('Root Container - Mount', () => {
     
     expect(secondDirectionButton.text()).toEqual(mockDirectionText)
     expect(instance.onSelectDirection).toHaveBeenCalledWith(mockDirectionValue)
-    expect(props.history.push).toHaveBeenCalled()
   })
 })

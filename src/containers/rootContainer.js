@@ -67,15 +67,15 @@ export class RootContainer extends React.PureComponent {
     }
   }
 
-  onSelectRoute = (currentRoute) => {
+  onSelectRoute = (currentRoute = '') => {
     const { history } = this.props
-    history.push(`?r=${currentRoute}`)
+    if (currentRoute !== '') history.push(`?r=${currentRoute}`)
   }
 
-  onSelectDirection = (currentDirection) => {
+  onSelectDirection = (currentDirection = '') => {
     const { history } = this.props
     const { currentRoute } = this.state
-    history.push(`?r=${currentRoute}&d=${currentDirection}`)
+    if (currentDirection !== '') history.push(`?r=${currentRoute}&d=${currentDirection}`)
   }
 
   onStopClicked = ({ Value = '', Text = '' }) => {
@@ -88,9 +88,7 @@ export class RootContainer extends React.PureComponent {
   closeModal = () => this.setState({ showModal: false })
 
   render() {
-    const { 
-      history = {}, 
-    } = this.props
+    const { history = {} } = this.props
     const { 
       routes, 
       currentRoute, 
