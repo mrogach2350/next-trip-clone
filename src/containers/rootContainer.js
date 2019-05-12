@@ -1,6 +1,5 @@
 import React from 'react'
 import queryString from 'query-string'
-import { withStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core'
 import RoutesList from '../components/routesList'
 import DirectionButtons from '../components/directionButtons'
@@ -8,21 +7,25 @@ import StopsList from '../components/stopsList'
 import InfoDialog from '../components/infoDialog'
 import { fetchProviders, fetchRoutes, fetchDirections, fetchStops, fetchDepartures } from '../utils/apiCalls'
 
+const initialState = {
+  defaultProvider: '8',
+  providers: [],
+  routes: [],
+  directions: [],
+  stops: [],
+  departures: [],
+  currentProvider: '8',
+  currentRoute: '',
+  currentDirection: '',
+  currentStopText: '',
+  showModal: false,
+}
+
 export class RootContainer extends React.PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = {
-      defaultProvider: '8',
-      providers: [],
-      routes: [],
-      directions: [],
-      stops: [],
-      currentProvider: '8',
-      currentRoute: '',
-      currentDirection: '',
-      currentStopText: '',
-    }
+    this.state = initialState
   }
 
   componentDidMount() {
@@ -40,14 +43,10 @@ export class RootContainer extends React.PureComponent {
 
     if (params.r !== prevParams.r) {
       if(!params.r) {
-        return this.setState({ 
-          currentRoute: '', 
-          currentDirection: '',
-          directions: [], 
-          stops: [],
-          departures: [],
-          showModal: false,
-        })
+        return this.setState(state => ({
+          ...initialState,
+          routes: state.routes,
+        }))
       }
 
       return fetchDirections(params.r).then(result => {
