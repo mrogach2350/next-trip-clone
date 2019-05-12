@@ -96,8 +96,20 @@ export class RootContainer extends React.PureComponent {
   closeModal = () => this.setState({ showModal: false })
 
   render() {
-    const { history, classes } = this.props
-    const { routes, currentRoute, directions, currentDirection, stops, currentStopText, showModal, departures } = this.state
+    const { 
+      history = {}, 
+      classes = {} 
+    } = this.props
+    const { 
+      routes, 
+      currentRoute, 
+      directions, 
+      currentDirection, 
+      stops, 
+      currentStopText, 
+      showModal, 
+      departures 
+    } = this.state
     const currentRouteData = routes.find(x => x.Route === currentRoute)
     const currentDirectionData = directions.find(x => x.Value === currentDirection)
     return (
