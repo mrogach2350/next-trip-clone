@@ -8,13 +8,6 @@ import StopsList from '../components/stopsList'
 import InfoDialog from '../components/infoDialog'
 import { fetchProviders, fetchRoutes, fetchDirections, fetchStops, fetchDepartures } from '../utils/apiCalls'
 
-const styles = {
-  root: {
-    backgroundColor: '#d3d3d3',
-    height: '100vh'
-  }
-}
-
 export class RootContainer extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -98,7 +91,6 @@ export class RootContainer extends React.PureComponent {
   render() {
     const { 
       history = {}, 
-      classes = {} 
     } = this.props
     const { 
       routes, 
@@ -113,7 +105,7 @@ export class RootContainer extends React.PureComponent {
     const currentRouteData = routes.find(x => x.Route === currentRoute)
     const currentDirectionData = directions.find(x => x.Value === currentDirection)
     return (
-      <Grid container className={classes.root}>
+      <Grid container>
         <Grid item xs={false} md={1} />
         <Grid item xs={12} md={5} md-offset={1}>
           {routes.length > 0 &&
@@ -150,4 +142,4 @@ export class RootContainer extends React.PureComponent {
   }
 }
 
-export default withStyles(styles)(RootContainer)
+export default RootContainer

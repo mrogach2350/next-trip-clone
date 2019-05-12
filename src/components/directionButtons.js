@@ -5,6 +5,7 @@ import { Paper, Button } from '@material-ui/core'
 import { header } from '../utils/styleConstants'
 
 const styles = {
+  header,
   root: { 
     margin: 0,
     padding: '16px', 
@@ -16,7 +17,6 @@ const styles = {
   button: {
     margin: '10px',
   },
-  header,
   paper: { 
     margin: '20px', 
     textAlign: 'center', 
@@ -27,10 +27,14 @@ export const DirectionButtons = ({
     classes = {},
     directions = [], 
     currentDirection = '', 
-    onSelectDirection = () => {} 
+    onSelectDirection = () => {},
+    history = () => {},
+    currentRoute = '', 
   }) => 
     <Paper className={classes.paper}>
-      <h1 className={classes.header}>Direction</h1>
+      <div className={classes.header}>
+        <h1 style={{ margin: 0 }}>Direction</h1>
+      </div>
       <div className={classes.root}>
         {directions.map((direction, idx) => 
           <Button 

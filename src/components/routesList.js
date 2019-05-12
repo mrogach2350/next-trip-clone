@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Paper, List, ListItem } from '@material-ui/core'
-import { header } from '../utils/styleConstants'
+import { Paper, List, ListItem, Button } from '@material-ui/core'
+import { flexHeader } from '../utils/styleConstants'
 
 const styles = {
-  header,
+  header: {
+    ...flexHeader,
+  },
   root: { 
     margin: '20px', 
     textAlign: 'center', 
@@ -22,7 +24,11 @@ export const RoutesList = ({
   const currentRouteData = routes.find(x => x.Route === currentRoute)
   return (
     <Paper className={classes.root}>
-      <h1 onClick={() => history.push('/')} className={classes.header}>Routes</h1>
+      <div className={classes.header}>
+        <h1 style={{ margin: 0 }}>Routes</h1>
+        <Button onClick={() => history.push('/')} variant="contained" >Reset</Button>
+      </div>
+      {/* <h1 onClick={() => history.push('/')} className={classes.header}>Routes</h1> */}
       {currentRoute === '' ?
         <List style={{ maxHeight: '500px', overflow: 'scroll' }}>
           {routes.map((route, idx) => 

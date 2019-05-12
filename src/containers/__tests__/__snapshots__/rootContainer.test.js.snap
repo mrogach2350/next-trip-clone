@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Root Container - Mount should render without error 1`] = `ReactWrapper {}`;
+
 exports[`RootContainer should render without error 1`] = `ShallowWrapper {}`;
