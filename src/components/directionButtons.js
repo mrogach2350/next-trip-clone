@@ -9,12 +9,17 @@ const styles = {
     margin: '20px', 
     display: 'flex', 
     flexDirection: 'row', 
-    alignItems: 'center' 
+    alignItems: 'center',
+    justifyContent: 'center' 
   },
   button: {
     margin: '10px',
   },
   header,
+  paper: { 
+    margin: '20px', 
+    textAlign: 'center', 
+  }
 }
 
 export const DirectionButtons = ({ 
@@ -23,7 +28,7 @@ export const DirectionButtons = ({
     currentDirection = '', 
     onSelectDirection = () => {} 
   }) => 
-    <Paper style={{ textAlign: 'center' }}>
+    <Paper className={classes.paper}>
       <h1 className={classes.header}>Direction</h1>
       <div className={classes.root}>
         {directions.map((direction, idx) => 

@@ -38,7 +38,12 @@ export class RootContainer extends React.PureComponent {
 
     if (params.r !== prevParams.r) {
       if(!params.r) {
-        return this.setState({ currentRoute: '', directions: [], stops: [] })
+        return this.setState({ 
+          currentRoute: '', 
+          currentDirection: '',
+          directions: [], 
+          stops: [] 
+        })
       }
 
       return fetchDirections(params.r).then(result => {
@@ -76,28 +81,30 @@ export class RootContainer extends React.PureComponent {
     return (
       <Grid 
         container
-        direction="column"
-        justify="center"
-        alignItems="center"
       >
-        {routes.length > 0 &&
-          <RoutesList 
-            history={history}
-            routes={routes}
-            currentRoute={currentRoute}
-            onSelectRoute={this.onSelectRoute}
-          /> 
-        }
-        {directions.length > 0 &&
-          <DirectionButtons 
-            directions={directions}
-            currentDirection={currentDirection}
-            onSelectDirection={this.onSelectDirection}
-          />
-        }
-        {stops.length > 0 &&
-          <StopsList stops={stops} />
-        }
+        <Grid item xs={false} md={1} />
+        <Grid item xs={12} md={5} md-offset={1}>
+          {routes.length > 0 &&
+            <RoutesList 
+              history={history}
+              routes={routes}
+              currentRoute={currentRoute}
+              onSelectRoute={this.onSelectRoute}
+            /> 
+          }
+          {directions.length > 0 &&
+            <DirectionButtons 
+              directions={directions}
+              currentDirection={currentDirection}
+              onSelectDirection={this.onSelectDirection}
+            />
+          }
+        </Grid> 
+        <Grid item xs={12} md={5}>
+          {stops.length > 0 &&
+            <StopsList stops={stops} />
+          }
+        </Grid>
       </Grid>
     )
   }

@@ -35,7 +35,7 @@ export const RoutesList = ({
             </ListItem>
           )}
         </List>:
-        <h4 style={{ margin: '15px' }}>
+        <h4 style={{ padding: '15px', margin: 0 }}>
           {currentRouteData.Description}
         </h4>
       }
