@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/next-trip-clone/static/css/main.ffa7d5ec.chunk.css",
-    "main.js": "/next-trip-clone/static/js/main.b7416e00.chunk.js",
-    "main.js.map": "/next-trip-clone/static/js/main.b7416e00.chunk.js.map",
+    "main.js": "/next-trip-clone/static/js/main.b547a003.chunk.js",
+    "main.js.map": "/next-trip-clone/static/js/main.b547a003.chunk.js.map",
     "runtime~main.js": "/next-trip-clone/static/js/runtime~main.1ec4fbc7.js",
     "runtime~main.js.map": "/next-trip-clone/static/js/runtime~main.1ec4fbc7.js.map",
-    "static/js/2.cdb22aa0.chunk.js": "/next-trip-clone/static/js/2.cdb22aa0.chunk.js",
-    "static/js/2.cdb22aa0.chunk.js.map": "/next-trip-clone/static/js/2.cdb22aa0.chunk.js.map",
+    "static/js/2.c8545f9d.chunk.js": "/next-trip-clone/static/js/2.c8545f9d.chunk.js",
+    "static/js/2.c8545f9d.chunk.js.map": "/next-trip-clone/static/js/2.c8545f9d.chunk.js.map",
     "index.html": "/next-trip-clone/index.html",
-    "precache-manifest.a3b054a364fc897a39c7448e92d52784.js": "/next-trip-clone/precache-manifest.a3b054a364fc897a39c7448e92d52784.js",
+    "precache-manifest.f8f46e3cf07000111686e400f0eda169.js": "/next-trip-clone/precache-manifest.f8f46e3cf07000111686e400f0eda169.js",
     "service-worker.js": "/next-trip-clone/service-worker.js",
     "static/css/main.ffa7d5ec.chunk.css.map": "/next-trip-clone/static/css/main.ffa7d5ec.chunk.css.map"
   }
