@@ -64,6 +64,30 @@ describe('RootContainer', () => {
       expect(props.history.push).toHaveBeenCalledWith(mockQuery)
     })
   })
+
+  describe('closeModal', () => {
+    it('should set state.showModal to false', () => {
+      const wrapper = shallow(<RootContainer {...props} />)
+
+      wrapper.setState({ showModal: true })
+      expect(wrapper.state('showModal')).toEqual(true)
+
+      wrapper.instance().closeModal()
+
+      expect(wrapper.state('showModal')).toEqual(false)
+    })
+  })
+
+  describe('onSelectProvider', () => {
+    it('should properly set state', () => {
+      const mockProvider = 'mockProvider'
+      const wrapper = shallow(<RootContainer {...props} />)
+
+      wrapper.instance().onSelectProvider(mockProvider)
+
+      expect(wrapper.state('currentProvider')).toEqual(mockProvider)
+    })
+  })
 })
 
 describe('Root Container - Mount', () => {

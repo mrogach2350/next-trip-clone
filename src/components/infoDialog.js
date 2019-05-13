@@ -35,7 +35,10 @@ export const InfoDialog = ({
         departures.map(departure => 
           <div className={classes.listing}>
             <span>{departure.Description}</span><br/>
-            <span>Departs At: {departure.DepartureText}</span>
+            {departure.Actual ?
+              <span>LIVE: Departs in {departure.DepartureText}</span> :
+              <span>Departs At: {departure.DepartureText}</span>
+            }
           </div>
         )
       }
