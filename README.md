@@ -12,6 +12,11 @@ This app reads data from The [Metro Transit Open API](http://svc.metrotransit.or
 5. Jest & Enzyme
 6. GitHub Pages
 
+### Assumptions made during development
+1. Majority of Users would be on mobile (App is responsive to to different screens)
+2. Users would be anonymous (No login)
+3. Routes/Departures displayed are only for the current date, no way to search future dates.
+
 ### To Run locally
 ```
 // Clone Project
