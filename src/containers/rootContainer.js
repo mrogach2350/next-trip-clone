@@ -4,17 +4,17 @@ import RoutesList from '../components/routesList'
 import DirectionButtons from '../components/directionButtons'
 import StopsList from '../components/stopsList'
 import InfoDialog from '../components/infoDialog'
+import ProviderList from '../components/providerList'
 import { getParsedSearchString } from '../utils/selectors'
 import { fetchProviders, fetchRoutes, fetchDirections, fetchStops, fetchDepartures } from '../utils/apiCalls'
 
 const initialState = {
-  defaultProvider: '8',
   providers: [],
   routes: [],
   directions: [],
   stops: [],
   departures: [],
-  currentProvider: '8',
+  currentProvider: '',
   currentRoute: '',
   currentDirection: '',
   currentStopText: '',
@@ -29,12 +29,8 @@ export class RootContainer extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { currentProvider } = this.state
     fetchProviders().then(results => this.setState({ providers: results.data }))
-    fetchRoutes().then(results => {
-      const filteredRoutes = results.data.filter(x => x.ProviderID === currentProvider)
-      this.setState({ routes: filteredRoutes })
-    })
+    fetchRoutes().then(results => this.setState({ routes: results.data }))
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -45,6 +41,7 @@ export class RootContainer extends React.PureComponent {
       if(!params.r) {
         return this.setState(state => ({
           ...initialState,
+          providers: state.providers,
           routes: state.routes,
         }))
       }
@@ -87,28 +84,40 @@ export class RootContainer extends React.PureComponent {
 
   closeModal = () => this.setState({ showModal: false })
 
+  onSelectProvider = (currentProvider = '') => this.setState({ currentProvider })
+
   render() {
     const { history = {} } = this.props
     const { 
+      providers,
       routes, 
-      currentRoute, 
       directions, 
-      currentDirection, 
       stops, 
+      departures,
+      currentProvider, 
+      currentRoute, 
+      currentDirection, 
       currentStopText, 
       showModal, 
-      departures 
     } = this.state
+    const filteredRoutes =  currentProvider === '' ? routes : routes.filter(x =>  x.ProviderID === currentProvider)
     const currentRouteData = routes.find(x => x.Route === currentRoute)
     const currentDirectionData = directions.find(x => x.Value === currentDirection)
     return (
       <Grid container>
         <Grid item xs={false} md={1} />
         <Grid item xs={12} md={5} md-offset={1}>
+          {providers.length > 0 &&
+            <ProviderList
+              currentProvider={currentProvider}
+              providers={providers}
+              onSelectProvider={this.onSelectProvider}
+            />
+          }
           {routes.length > 0 &&
             <RoutesList 
               history={history}
-              routes={routes}
+              routes={filteredRoutes}
               currentRoute={currentRoute}
               onSelectRoute={this.onSelectRoute}
             /> 
