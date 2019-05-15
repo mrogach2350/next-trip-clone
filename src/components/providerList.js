@@ -59,8 +59,9 @@ export class ProviderList extends React.PureComponent {
             >
               All Providers
             </MenuItem>
-          {providers.map(provider => 
+          {providers.map((provider, idx) => 
             <MenuItem 
+              key={idx}
               onClick={() => this.handleSelectAndClose(provider.Value)}
             >
               {provider.Text}

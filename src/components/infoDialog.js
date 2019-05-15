@@ -32,8 +32,8 @@ export const InfoDialog = ({
     <DialogContent className={classes.content}>
       {departures.length === 0 ? 
         <h4>No Departures left today</h4>:
-        departures.map(departure => 
-          <div className={classes.listing}>
+        departures.map((departure, idx) => 
+          <div key={idx} className={classes.listing}>
             <span>{departure.Description}</span><br/>
             {departure.Actual ?
               <span>LIVE: Departs in {departure.DepartureText}</span> :

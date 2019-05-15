@@ -13,7 +13,7 @@ const styles = {
     textAlign: 'center', 
   },
   list: { 
-    maxHeight: '500px', 
+    maxHeight: '70vh', 
     overflow: 'scroll' 
   },
   h1: {
