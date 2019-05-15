@@ -5,6 +5,14 @@ import { header } from '../utils/styleConstants'
 
 const styles = {
   header,
+  root: { 
+    margin: '20px', 
+    textAlign: 'center', 
+  },
+  list: { 
+    maxHeight: '60vh', 
+    overflow: 'scroll', 
+  }
 }
 
 export const StopsList = ({ 
@@ -12,9 +20,9 @@ export const StopsList = ({
   classes = {}, 
   onStopClicked = () => {} 
 }) => 
-  <Paper style={{ margin: '20px', textAlign: 'center' }}>
+  <Paper className={classes.root}>
     <h1 className={classes.header}>Stops</h1>
-    <List style={{ maxHeight: '500px', overflow: 'scroll' }}>
+    <List className={classes.list}>
       {stops.map((stop, idx) => 
         <ListItem 
           button
