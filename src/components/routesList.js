@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { isEmpty } from 'lodash'
 import { withStyles } from '@material-ui/core/styles'
 import { Paper, List, ListItem, Button } from '@material-ui/core'
 import { flexHeader } from '../utils/styleConstants'
@@ -24,24 +25,23 @@ const styles = {
 export const RoutesList = ({ 
   classes = {},
   routes = [], 
-  currentRoute = '', 
+  currentRouteData = {}, 
   onSelectRoute = () => {},
   history = {},
 }) => {
-  const currentRouteData = routes.find(x => x.Route === currentRoute)
   return (
     <Paper className={classes.root}>
       <div className={classes.header}>
         <h1 className={classes.h1}>Routes</h1>
         <Button onClick={() => history.push('/')} variant="contained" >Reset</Button>
       </div>
-      {currentRoute === '' ?
+      {isEmpty(currentRouteData) ?
         <List className={classes.list}>
           {routes.map((route, idx) => 
             <ListItem 
               button
               onClick={() => onSelectRoute(route.Route)}
-              selected={currentRoute === route.Route}
+              selected={currentRouteData.Route === route.Route}
               key={idx}
             >
               {route.Description}

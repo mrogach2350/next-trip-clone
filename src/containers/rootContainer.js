@@ -31,11 +31,9 @@ export class RootContainer extends React.PureComponent {
 
   async componentDidMount() {
     const params = getParsedSearchString(this.props)
-
-    // fetchProviders().then(result => this.setState({ providers: result.data }))
     const providersResults = await fetchProviders()
     const providers = await providersResults.data
-
+    // const providers = await fetchProviders().data
     const routesResult = await fetchRoutes()
     const routes = await routesResult.data
 
@@ -106,11 +104,12 @@ export class RootContainer extends React.PureComponent {
     if (currentDirection !== '') history.push(`?r=${currentRoute}&d=${currentDirection}`)
   }
 
-  onStopClicked = ({ Value = '', Text = '' }) => {
+  onStopClicked = async ({ Value = '', Text = '' }) => {
     const { currentRoute, currentDirection } = this.state
-    fetchDepartures(currentRoute, currentDirection, Value).then(result => {
-      this.setState({ departures: result.data, currentStopText: Text, showModal: true })
-    })
+    const departuresResult = await fetchDepartures(currentRoute, currentDirection, Value)
+    const departures = departuresResult.data
+
+    return this.setState({ departures, currentStopText: Text, showModal: true })
   }
 
   closeModal = () => this.setState({ showModal: false })
@@ -149,7 +148,7 @@ export class RootContainer extends React.PureComponent {
             <RoutesList 
               history={history}
               routes={filteredRoutes}
-              currentRoute={currentRoute}
+              currentRouteData={currentRouteData}
               onSelectRoute={this.onSelectRoute}
             /> 
           }
