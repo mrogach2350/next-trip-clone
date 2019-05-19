@@ -29,42 +29,39 @@ export class RootContainer extends React.PureComponent {
     this.state = initialState
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const params = getParsedSearchString(this.props)
 
-    fetchProviders().then(result => this.setState({ providers: result.data }))
-    fetchRoutes().then(result => {
-      const routes = result.data
-      // Check to see if route is present on load
-      if (params.r !== '') {
-        // Check to see if direction is present on load
-        if (params.d !== '') {
-          fetchDirections(params.r).then(result => {
-            const directions = result.data
-            return fetchStops(params.r, params.d).then(result => {
-              const stops = result.data
-              this.setState({ 
-                currentRoute: params.r, 
-                currentDirection: params.d, 
-                directions, 
-                routes,
-                stops 
-              })
-            })
-          })
-        }
+    // fetchProviders().then(result => this.setState({ providers: result.data }))
+    const providersResults = await fetchProviders()
+    const providers = await providersResults.data
 
-        return fetchDirections(params.r).then(result => {
-          const directions = result.data
-          this.setState({ currentRoute: params.r, directions, routes })
+    const routesResult = await fetchRoutes()
+    const routes = await routesResult.data
+
+    if (params.r !== '') {
+      const directionsResult = await fetchDirections(params.r)
+      const directions = await directionsResult.data
+
+      // Check to see if direction is present on load
+      if (params.d !== '') {
+        const stopsResult = await fetchStops(params.r, params.d)
+        const stops = await stopsResult.data
+        return this.setState({ 
+          currentRoute: params.r, 
+          currentDirection: params.d, 
+          providers,
+          directions, 
+          routes,
+          stops 
         })
       }
-      //if nothing, just load routes
-      return this.setState({ routes })
-    })
+      return this.setState({ currentRoute: params.r, directions, routes, providers })
+    }
+    return this.setState({ routes, providers })
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     const prevParams = getParsedSearchString(prevProps)
     const params = getParsedSearchString(this.props)
 
@@ -80,24 +77,21 @@ export class RootContainer extends React.PureComponent {
       }
 
       // if route is selected, fetch directions
-      return fetchDirections(params.r).then(result => {
-        const directions = result.data
-        this.setState({ currentRoute: params.r, directions })
-      }) 
+      const directionsResult = await fetchDirections(params.r)
+      const directions = await directionsResult.data
+      return this.setState({ currentRoute: params.r, directions })
     }
 
     // if direction changed
     if (params.d !== prevParams.d) {
       // if no direction clear selection
-      if(!params.d) {
-        return this.setState({ currentDirection: '', stops: [] })
-      }
+      if(!params.d) return this.setState({ currentDirection: '', stops: [] })
 
       // if direction, fetch stops
-      return fetchStops(params.r, params.d).then(result => {
-        const stops = result.data
-        this.setState({ currentDirection: params.d, stops })
-      })
+      const stopsResult = await fetchStops(params.r, params.d)
+      const stops = await stopsResult.data
+      return this.setState({ currentDirection: params.d, stops })
+
     }
   }
 
@@ -127,7 +121,7 @@ export class RootContainer extends React.PureComponent {
     const { history = {} } = this.props
     const { 
       providers,
-      routes, 
+      routes = [], 
       directions, 
       stops, 
       departures,
